@@ -20,7 +20,7 @@ const router = <BrowserRouter>
     <Route path="" element={<App />} /> 
   </Route>
   <Route path="/login" element={<Login />} />
-  <Route path="/signup/volunteer" element={<VolunteerSignup />} />
+  <Route path="/registrations/volunteers" element={<VolunteerSignup />} />
   <Route path="*" element={<NotFound />} />
 </Routes>
 </BrowserRouter>

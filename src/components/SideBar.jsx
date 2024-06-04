@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Squash as Hamburger } from "hamburger-react";
+import {Button} from "../components"
 import logo from "../Images/o2_logo.png"
-
+import user from "../api/User";
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
@@ -42,6 +43,25 @@ const SideBar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  const logoutHandler = async () => {
+    setLoading(true);
+    await user
+      .logoutUser()
+      .then((res) => {
+        if (res.data?.statusCode === 200) {
+          dispatch(logout());
+          alert("Logged out successfully");
+          navigate("/login", { replace: true });
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        if (error?.response?.status === 401) alert("No user logged in");
+        else alert("Something wrong happened: ", error);
+        setLoading(false);
+      });
+  };
 
   return (
     <div className="fixed left-0 top-0 lg:static dashboard-nav-container w-full lg:w-1/5 flex flex-col h-auto lg:min-h-screen">
@@ -90,9 +110,7 @@ const SideBar = () => {
           </div>
         </div>
         <div className="button-container flex p-2">
-          <button className="logout bg-red-500 text-white text-center py-1 w-full rounded">
-            Logout
-          </button>
+         <Button label="Logout" className="logout bg-red-500 text-white text-center py-1 w-full rounded"/>
         </div>
       </div>
     </div>

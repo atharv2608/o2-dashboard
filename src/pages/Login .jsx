@@ -51,6 +51,7 @@ const Login = () => {
             alert("Volunteer not yet selected");
           if (error?.response?.status === 401) alert("Invalid Credentials");
           if (error?.response?.status === 409) alert("Already Logged in");
+          else alert("Ran into problem")
           setLoading(false);
         });
     } catch (error) {

@@ -1,8 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import TopBar from './components/TopBar'
 import { SideBar } from './components'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 function DashboardLayout() {
+  const authStatus = useSelector((state) => state.auth.status);
+  const navigate = useNavigate()
+  useEffect(() => {
+    if(!authStatus) navigate("/login", {replace: true})
+
+  }, [authStatus])
+  
+  
   return (
     <>
       {/* <TopBar /> */}

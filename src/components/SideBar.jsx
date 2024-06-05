@@ -3,10 +3,15 @@ import { Squash as Hamburger } from "hamburger-react";
 import {Button} from "../components"
 import logo from "../Images/o2_logo.png"
 import user from "../api/User";
+import {logout} from "../slices/authSlice.js"
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navRef = useRef(null);
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -58,7 +63,7 @@ const SideBar = () => {
       })
       .catch((error) => {
         if (error?.response?.status === 401) alert("No user logged in");
-        else alert("Something wrong happened: ", error);
+        else console.error("Error: ", error)
         setLoading(false);
       });
   };
@@ -110,7 +115,7 @@ const SideBar = () => {
           </div>
         </div>
         <div className="button-container flex p-2">
-         <Button label="Logout" className="logout bg-red-500 text-white text-center py-1 w-full rounded"/>
+         <Button label="Logout" className="logout bg-red-500 text-white text-center py-1 w-full rounded " onClick={logoutHandler} />
         </div>
       </div>
     </div>

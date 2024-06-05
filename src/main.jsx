@@ -7,7 +7,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import Layout from "./Layout.jsx";
+import DashboardLayout from "./DashboardLayout.jsx";
 import { Login, NotFound, VolunteerSignup } from "./pages";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -16,7 +16,7 @@ import store from "./store/store.js";
 
 const router = <BrowserRouter>
 <Routes>
-  <Route path="/" element={<Layout />}>
+  <Route path="/" element={<DashboardLayout />}>
     <Route path="" element={<App />} /> 
   </Route>
   <Route path="/login" element={<Login />} />

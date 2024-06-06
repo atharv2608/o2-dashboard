@@ -6,6 +6,7 @@ import user from "../api/User";
 import {logout} from "../slices/authSlice.js"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -50,25 +51,37 @@ const SideBar = () => {
   }, [isOpen]);
 
   const logoutHandler = async () => {
+    dispatch(logout());
     setLoading(true);
-    await user
-      .logoutUser()
-      .then((res) => {
-        if (res.data?.statusCode === 200) {
-          dispatch(logout());
-          navigate("/login", { replace: true });
+    try {
+      await user
+        .logoutUser()
+        .then((res) => {
+          if (res.data?.statusCode === 200) {
+            navigate("/login", { replace: true });
+            setLoading(false);
+          }
+        })
+        .catch((error) => {
+          if (error?.response?.status === 401) toast.error("No user logged in");
+          else {
+            console.error("Error: ", error)
+            toast.error("Ran into problem")
+          }
           setLoading(false);
-        }
-      })
-      .catch((error) => {
-        if (error?.response?.status === 401) alert("No user logged in");
-        else console.error("Error: ", error)
-        setLoading(false);
-      });
+        });
+    } catch (error) {
+      console.error("Error: ", error)
+      toast.error("Some error occured")
+      setLoading(false)
+    } finally{
+      setLoading(false)
+    }
   };
 
   return (
     <div className="fixed left-0 top-0 lg:static dashboard-nav-container w-full lg:w-1/5 flex flex-col h-auto lg:min-h-screen">
+    <ToastContainer />
       <div className="mobile-nav bg-black flex justify-between items-center lg:hidden p-3">
         <div className="order-last">
           <img src={logo} width={50} height={50} alt="logo" />

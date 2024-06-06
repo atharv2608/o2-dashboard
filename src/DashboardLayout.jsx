@@ -7,10 +7,7 @@ import { ToastContainer } from 'react-toastify'
 function DashboardLayout() {
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate()
-  useEffect(() => {
-    if(!authStatus) navigate("/login", {replace: true})
-
-  }, [authStatus])
+  
   
   
   return (

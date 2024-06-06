@@ -56,7 +56,6 @@ const SideBar = () => {
       .then((res) => {
         if (res.data?.statusCode === 200) {
           dispatch(logout());
-          alert("Logged out successfully");
           navigate("/login", { replace: true });
           setLoading(false);
         }
@@ -115,7 +114,7 @@ const SideBar = () => {
           </div>
         </div>
         <div className="button-container flex p-2">
-         <Button label="Logout" className="logout bg-red-500 text-white text-center py-1 w-full rounded " onClick={logoutHandler} />
+         <Button loading={loading} label="Logout" className="logout bg-red-500 text-white text-center py-1 w-full rounded " onClick={logoutHandler} />
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ import { FileInput, Input, RadioButton, Select, Button } from "../components";
 import { useForm } from "react-hook-form";
 
 import user from "../api/User";
+import { ToastContainer, toast } from "react-toastify";
 function VolunteerSignup() {
   const [loading, setLoading] = useState(false);
   scrollToTop();
@@ -57,11 +58,11 @@ function VolunteerSignup() {
           setLoading(false);
         })
         .catch((error) => {
-          if (error?.response?.status === 409) alert("User already exist");
+          if (error?.response?.status === 409) toast.error("User already exist");
           setLoading(false);
         });
     } catch (error) {
-      alert("Some error occured")
+      toast.error("Ran into problem")
       setLoading(false);
     }
   };
@@ -79,13 +80,12 @@ function VolunteerSignup() {
 
   return (
     <div className="flex min-h-screen ">
+    <ToastContainer />
       <div
-        className={`hidden  lg:block min-h-screen w-1/2 bg-cover bg-center ${
-          loading ? "opacity-70" : ""
-        }`}
+        className={`hidden  lg:block min-h-screen w-1/2 bg-cover bg-center `}
         style={backgroundImageStyle}
       ></div>
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      {/* <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <ClipLoader
           color="#EF4444"
           height={600}
@@ -93,11 +93,9 @@ function VolunteerSignup() {
           loading={loading ? true : false}
           className="absolute"
         />
-      </div>
+      </div> */}
       <div
-        className={`${
-          loading ? "opacity-70" : ""
-        } bg-black text-white w-full flex flex-col items-center px-10 py-24 justify-center lg:w-1/2`}
+        className={` bg-black text-white w-full flex flex-col items-center px-10 py-24 justify-center lg:w-1/2`}
       >
         <div className="flex flex-col gap-2 mb-4">
           <div className="font-black text-3xl lg:text-4xl">Welcome!👋</div>
@@ -411,7 +409,8 @@ function VolunteerSignup() {
 
           <div className="flex">
             <Button
-              label={loading ? "Creating...." : "Register"}
+              label="Register"
+              loading={loading}
               className="bg-red-500 py-2 px-4 rounded-xl"
             />
           </div>

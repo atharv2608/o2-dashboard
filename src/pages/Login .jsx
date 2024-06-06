@@ -3,20 +3,23 @@ import formimg from "../Images/formimage.png";
 import { Link, useNavigate } from "react-router-dom";
 import { scrollToTop } from "../utils";
 import { useForm } from "react-hook-form";
-import { Input } from "../components";
+import { Button, Input } from "../components";
 import { ClipLoader } from "react-spinners";
 import user from "../api/User";
 import { useDispatch, useSelector } from "react-redux";
-import { login as authLogin } from "../slices/authSlice.js"
+import { login as authLogin } from "../slices/authSlice.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Ensure you import the toastify CSS
+
 const Login = () => {
   scrollToTop();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.status);
-  useEffect(()=>{
-    if(authStatus) navigate("/", {replace: true})
-  }, [authStatus])
+  useEffect(() => {
+    if (authStatus) navigate("/", { replace: true });
+  }, [authStatus]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const backgroundImageStyle = {
     backgroundImage: `url(${formimg})`,
@@ -36,32 +39,38 @@ const Login = () => {
         .loginUser(formData)
         .then((res) => {
           if (res.data?.statusCode === 200) {
-            console.log(res);
-            const userData = res.data.data
-            const designation = res.data.data.designation
-            if(userData) dispatch(authLogin(userData, designation))
-            alert("Login Success");
+            toast.success("Login Success"); // Using toast for success message
+            const userData = res.data.data;
+            const designation = res.data.data.designation;
+            if (userData) dispatch(authLogin(userData, designation));
           }
           setLoading(false);
         })
         .catch((error) => {
-          if (error?.response?.status === 404)
+          if (error?.response?.status === 404) {
             setError("phone", { type: "not-found", message: "User null" });
-          if (error?.response?.status === 403)
-            alert("Volunteer not yet selected");
-          if (error?.response?.status === 401) alert("Invalid Credentials");
-          if (error?.response?.status === 409) alert("Already Logged in");
-          else alert("Ran into problem")
+            toast.error("User does not exist"); // Using toast for error message
+          } else if (error?.response?.status === 403) {
+            toast.error("Volunteer not yet selected");
+          } else if (error?.response?.status === 401) {
+            toast.error("Invalid Credentials");
+          } else if (error?.response?.status === 409) {
+            toast.error("Already Logged in");
+          } else {
+            toast.error("Ran into problem");
+          }
           setLoading(false);
         });
     } catch (error) {
-      alert("Some error occured");
+      toast.error("Some error occurred");
       setLoading(false);
     }
   };
+
   return (
     <div className="flex min-h-screen">
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <ToastContainer /> {/* Ensuring ToastContainer is included */}
+      {/* <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <ClipLoader
           color="#EF4444"
           height={600}
@@ -69,22 +78,19 @@ const Login = () => {
           loading={loading ? true : false}
           className="absolute"
         />
-      </div>
+      </div> */}
       <div
-        className="hidden  lg:block min-h-screen w-1/2 bg-cover bg-center "
+        className="hidden lg:block min-h-screen w-1/2 bg-cover bg-center"
         style={backgroundImageStyle}
       ></div>
-      <div className="bg-black text-white w-full lg:w-1/2  flex items-center justify-center ">
-        {" "}
+      <div className="bg-black text-white w-full lg:w-1/2 flex items-center justify-center">
         <form
           className="w-full p-14 flex flex-col gap-8 lg:p-36"
           onSubmit={handleSubmit(login)}
         >
           <div className="flex flex-col gap-2">
             <div className="font-black text-3xl lg:text-4xl">Welcome!👋</div>
-            <div className="text-md md:text-lg">
-              Enter your login credentials
-            </div>
+            <div className="text-md md:text-lg">Enter your login credentials</div>
           </div>
           {/* form inputs */}
           <div className="flex flex-col gap-6">
@@ -122,14 +128,10 @@ const Login = () => {
               )}
               {errors.phone?.type === "pattern" && (
                 <p role="alert" className="text-red-500">
-                  EmaiPhone number is invalid
+                  Phone number is invalid
                 </p>
               )}
-              {errors.phone?.type === "not-found" && (
-                <p role="alert" className="text-red-500">
-                  User does not exist
-                </p>
-              )}
+              
             </div>
             <div className="flex flex-col gap-2">
               <Input
@@ -150,9 +152,7 @@ const Login = () => {
           </div>
           {/* submit button */}
           <div>
-            <button type="submit" className="bg-red-500 py-2 px-4 rounded-xl">
-              login
-            </button>
+            <Button className="bg-red-500 py-2 px-4 rounded-xl" label="Login" loading={loading}/>
             <div className="mt-5 underline font-bold hover:text-red-500">
               <Link to="/registrations/volunteers">
                 Don't have an account? Sign up here!

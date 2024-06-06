@@ -8,7 +8,7 @@ import {
   Routes,
 } from "react-router-dom";
 import DashboardLayout from "./DashboardLayout.jsx";
-import { Login, NotFound, VolunteerSignup } from "./pages";
+import { Login, NotFound, SuccessRegister, VolunteerSignup } from "./pages";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
@@ -20,7 +20,12 @@ const router = <BrowserRouter>
     <Route path="" element={<App />} /> 
   </Route>
   <Route path="/login" element={<Login />} />
-  <Route path="/registrations/volunteers" element={<VolunteerSignup />} />
+  <Route path="registrations">
+        <Route path="volunteers">
+          <Route index element={<VolunteerSignup />} />
+          <Route path="success" element={<SuccessRegister />} />
+        </Route>
+      </Route>
   <Route path="*" element={<NotFound />} />
 </Routes>
 </BrowserRouter>

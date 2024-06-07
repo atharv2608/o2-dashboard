@@ -32,6 +32,7 @@ import Button from "../formElements/Button";
 import { useDispatch } from "react-redux";
 import { logout } from "../../slices/authSlice";
 import user from "../../api/User";
+import { MobileSidebar } from "../MobileSidebar";
 
 const iconMap = {
     PresentationChartBarIcon: PresentationChartBarIcon,
@@ -158,6 +159,7 @@ export function Sidebar() {
   };
 
   return (
+    <>
     <div className="hidden lg:flex flex-col bg-black w-full max-w-[15rem]">
       <div className="flex-grow">
         <div className="mb-2 p-4">
@@ -235,5 +237,10 @@ export function Sidebar() {
         />
       </div>
     </div>
+
+    <div className="lg:hidden w-full p-15 bg-black">
+          <MobileSidebar iconMap={iconMap} menu={menu}/>
+    </div>
+  </>
   );
 }

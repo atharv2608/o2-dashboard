@@ -16,8 +16,8 @@ function DashboardLayout() {
     <div className="min-h-screen flex flex-col lg:flex-row text-white">
       <Sidebar />
       <div className="z-5 min-h-screen  bg-[#1f2020] text-white w-full ">
-      <div className="absolute top-0 right-0 pr-4 pt-2 font-bold">{`${userData.firstName} ${userData.lastName}`}</div>
-      <div className="flex-grow mt-11 border-t border-white pt-4">
+      <div className="hidden lg:block absolute top-0 right-0 pr-4 pt-2 font-bold">{`${userData.firstName} ${userData.lastName}`}</div>
+      <div className="flex-grow lg:mt-11 lg:border-t lg:border-white pt-4">
             <Outlet />
           </div>
       </div>

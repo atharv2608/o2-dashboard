@@ -5,7 +5,7 @@ import logo from "../Images/o2_logo.png"
 import user from "../api/User";
 import {logout} from "../slices/authSlice.js"
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -97,13 +97,13 @@ const SideBar = () => {
         } lg:flex`}
       >
         <div className=" dashboard-links-container pl-4 flex flex-col gap-2 pt-6 lg:pt-12">
-          <div className="link text-xl font-bold">Dashboard</div>
+          <NavLink to="/" className="link text-xl font-bold">Dashboard</NavLink>
           <div className="link text-xl font-bold">Events</div>
           <div className="link text-xl font-bold">Non Events</div>
           <div className="link text-xl font-bold">Schedule</div>
           <div className="link text-xl font-bold">Colleges</div>
           <div className="link-container flex flex-col gap-2">
-            <div className="link text-xl font-bold">Data Bank</div>
+            <NavLink to="/databank" className="link text-xl font-bold">Data Bank</NavLink>
             <div className="sublink-container flex flex-col pl-6 gap-2">
               <div className="sublink font-semibold">Registrations</div>
               <div className="sublink font-semibold">Master Data</div>

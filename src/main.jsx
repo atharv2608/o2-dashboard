@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import store from "./store/store.js";
 import ProtectedLayout from "./components/ProtectedLayout.jsx";
+import { DataBank } from "./components/index.js";
 
 const router = (
   <BrowserRouter>
@@ -17,6 +18,7 @@ const router = (
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<DashboardLayout />}>
           <Route path="" element={<App />} />
+          <Route path="/databank" element={<DataBank />} />
         </Route>
       </Route>
       <Route path="/login" element={<Login />} />

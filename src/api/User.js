@@ -56,7 +56,7 @@ export class User {
 
   async logoutUser() {
     let configuration = {
-      method: "get",
+      method: "post",
       maxBodyLength: Infinity,
       url: `http://${config.apiurl}/logout`,
       withCredentials: true,

@@ -20,7 +20,6 @@ export default function MyProfile({username= "Username", role="Role"}) {
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
-        dispatch(logout());
         setLoading(true);
         try {
             await user.logoutUser().then((res) => {

@@ -1,29 +1,32 @@
-import React, {useEffect} from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { ToastContainer } from 'react-toastify'
-import { ThemeProvider } from '@material-tailwind/react'
-import { Sidebar } from './components/'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import {ThemeProvider } from '@material-tailwind/react';
+import { Sidebar, MyProfile } from './components/';
+import {scrollToTop} from "./utils"
 function DashboardLayout() {
-  const authStatus = useSelector((state) => state.auth.status);
-  const userData = useSelector((state) => state?.auth?.userData)
- 
-  
-  
+  scrollToTop()
+  const userData = useSelector((state) => state?.auth?.userData);
+
   return (
     <ThemeProvider>
       <ToastContainer />
-    <div className="min-h-screen flex flex-col lg:flex-row text-white">
-      <Sidebar />
-      <div className="z-5 min-h-screen  bg-[#1f2020] text-white w-full ">
-      <div className="hidden lg:block absolute top-0 right-0 pr-4 pt-2 font-bold">{`${userData.firstName} ${userData.lastName}`}</div>
-      <div className="flex-grow lg:mt-11 lg:border-t lg:border-white pt-4">
+      <div className="min-h-screen flex flex-col lg:flex-row text-white">
+        <Sidebar />
+        <div className="flex-grow flex flex-col min-h-screen bg-[#1f2020] text-white w-full">
+          <div className="hidden bg-[#1f2020] p-4 lg:flex justify-end items-center lg:items-start">
+            <div className="font-bold flex items-center">
+            <MyProfile username={`${userData.firstName} ${userData.lastName}`} role={userData.designation} />
+            </div>
+          </div>
+          <div className="flex-grow  lg:border-t lg:border-white p-4">
             <Outlet />
           </div>
+        </div>
       </div>
-    </div>
     </ThemeProvider>
-  )
+  );
 }
 
-export default DashboardLayout
+export default DashboardLayout;

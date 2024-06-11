@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import {
   IconButton,
@@ -6,70 +6,26 @@ import {
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
-  Chip,
+
   Accordion,
   AccordionHeader,
   AccordionBody,
-  Alert,
-  Input,
+
   Drawer,
 } from "@material-tailwind/react";
 import {
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
-} from "@heroicons/react/24/solid";
-import {
   ChevronRightIcon,
   ChevronDownIcon,
-  CubeTransparentIcon,
-  MagnifyingGlassIcon,
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import logo from "../Images/o2_logo.png";
-import Button from "./formElements/Button";
-import { useDispatch } from "react-redux";
-import { logout } from "../slices/authSlice";
+import { useSelector } from "react-redux";
+import MyProfile from "./MyProfile";
 export function MobileSidebar({ menu, iconMap }) {
   const [open, setOpen] = React.useState(0);
-  const [openAlert, setOpenAlert] = React.useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const [loading, setLoading] = useState(false)
-  const dispatch = useDispatch()
-
-  const logoutHandler = async () => {
-    dispatch(logout());
-    setLoading(true);
-    try {
-      await user
-        .logoutUser()
-        .then((res) => {
-          if (res.data?.statusCode === 200) {
-            navigate("/login", { replace: true });
-            setLoading(false);
-          }
-        })
-        .catch((error) => {
-          if (error?.response?.status === 401) toast.error("No user logged in");
-          else {
-            console.error("Error: ", error)
-            toast.error("Ran into problem")
-          }
-          setLoading(false);
-        });
-    } catch (error) {
-      console.error("Error: ", error)
-      toast.error("Some error occured")
-      setLoading(false)
-    } finally{
-      setLoading(false)
-    }
-  };
+  const userData = useSelector((state) => state?.auth?.userData);
+ 
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -94,14 +50,12 @@ export function MobileSidebar({ menu, iconMap }) {
             <Bars3Icon className="h-8 w-8 stroke-2" />
           )}
         </IconButton>
-        <div>
-          <img src={logo} alt="" height={"50px"} width={"50px"} />
-        </div>
+        <MyProfile username={`${userData.firstName} ${userData.lastName}`} role={userData.designation} />
       </div>
       <Drawer open={isDrawerOpen} onClose={closeDrawer}>
         <div
           color="transparent"
-          shadow={false}
+          shadow={"false"}
           className="h-screen w-full p-4 bg-black"
         >
           <div className="flex flex-col h-screen">
@@ -172,14 +126,6 @@ export function MobileSidebar({ menu, iconMap }) {
               );
             })}
           </List>
-          <div className="p-4 mb-4">
-            <Button
-              label="Logout"
-              loading={loading}
-              className="logout bg-red-500 text-white text-center py-1 w-full rounded"
-                onClick={logoutHandler}
-            />
-          </div>
           </div>
         </div>
       </Drawer>

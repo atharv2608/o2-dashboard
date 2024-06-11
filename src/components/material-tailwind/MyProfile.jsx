@@ -20,14 +20,13 @@ export default function MyProfile({username= "Username", role="Role"}) {
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
-        console.log("Logging out...");
         dispatch(logout());
         setLoading(true);
         try {
             await user.logoutUser().then((res) => {
                 if (res.data?.statusCode === 200) {
-                    console.log("Logout successful, navigating to login page...");
-                    navigate("/login", { replace: true });
+                  dispatch(logout());
+                  navigate("/login", { replace: true });
                     setLoading(false);
                 }
             }).catch((error) => {

@@ -157,6 +157,7 @@ export function Sidebar() {
                   <AccordionBody className="py-1">
                     <List className="p-0">
                       {option.submenu.map((subOption, subIndex) => (
+                          <NavLink to={subOption.link}>
                         <ListItem key={subIndex} className="ml-5 text-white">
                           <ListItemPrefix>
                             <ChevronRightIcon
@@ -164,23 +165,22 @@ export function Sidebar() {
                               className="h-3 w-5"
                             />
                           </ListItemPrefix>
-                          <NavLink to={subOption.link}>
                             {subOption.name}
-                          </NavLink>
                         </ListItem>
+                          </NavLink>
                       ))}
                     </List>
                   </AccordionBody>
                 </Accordion>
               ) : (
+                  <NavLink to={option.link} className="text-white">
                 <ListItem key={index}>
                   <ListItemPrefix>
                     <IconComponent className="h-5 w-5" color="#ef4444" />
                   </ListItemPrefix>
-                  <NavLink to={option.link} className="text-white">
                     {option.name}
-                  </NavLink>
                 </ListItem>
+                  </NavLink>
               );
             })}
           </List>

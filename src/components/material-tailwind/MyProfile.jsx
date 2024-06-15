@@ -21,19 +21,16 @@ export default function MyProfile({username= "Username", role="Role"}) {
 
     const logoutHandler = async () => {
         setLoading(true);
+        dispatch(logout());
         try {
             await user.logoutUser().then((res) => {
                 if (res.data?.statusCode === 200) {
-                  dispatch(logout());
                   navigate("/login", { replace: true });
                     setLoading(false);
                 }
             }).catch((error) => {
-                if (error?.response?.status === 401) toast.error("No user logged in");
-                else {
-                    console.error("Error: ", error);
-                    toast.error("Ran into problem");
-                }
+                console.error("Error: ", error);
+                toast.error("Ran into problem");
                 setLoading(false);
             });
         } catch (error) {

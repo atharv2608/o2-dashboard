@@ -28,7 +28,7 @@ function VolunteerSignup() {
 
   const submitForm = async (data) => {
     if (watchPassword !== watchConfirmPassword) {
-      alert("Password and Confirm Password does not match");
+      toast.error("Password and Confirm Password does not match");
       return;
     }
     setLoading(true);
@@ -85,15 +85,6 @@ function VolunteerSignup() {
         className={`hidden  lg:block min-h-screen w-1/2 bg-cover bg-center `}
         style={backgroundImageStyle}
       ></div>
-      {/* <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <ClipLoader
-          color="#EF4444"
-          height={600}
-          width={600}
-          loading={loading ? true : false}
-          className="absolute"
-        />
-      </div> */}
       <div
         className={` bg-black text-white w-full flex flex-col items-center px-10 py-24 justify-center lg:w-1/2`}
       >
@@ -145,7 +136,7 @@ function VolunteerSignup() {
                 />
                 {errors.lastName?.type === "required" && (
                   <p role="alert" className="text-red-500">
-                    First name is required
+                    Last name is required
                   </p>
                 )}
                 {errors.lastName?.type === "pattern" && (

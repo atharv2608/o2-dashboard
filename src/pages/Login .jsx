@@ -4,12 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { scrollToTop } from "../utils";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "../components";
-import { ClipLoader } from "react-spinners";
 import user from "../api/User";
 import { useDispatch, useSelector } from "react-redux";
 import { login as authLogin } from "../slices/authSlice.js";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Ensure you import the toastify CSS
+import Cookies from "js-cookie";
 
 const Login = () => {
   scrollToTop();
@@ -39,8 +38,14 @@ const Login = () => {
         .loginUser(formData)
         .then((res) => {
           if (res.data?.statusCode === 200) {
-            toast.success("Login Success"); // Using toast for success message
             const userData = res.data.data;
+            Cookies.set("accessToken", userData.accessToken, {
+              expires: 7, 
+              path: '/', 
+              secure: true, 
+              sameSite: 'strict' 
+            })
+            console.log(userData);
             const designation = res.data.data.designation;
             if (userData) dispatch(authLogin(userData, designation));
           }
@@ -58,6 +63,7 @@ const Login = () => {
             toast.error("Already Logged in");
           } else {
             toast.error("Ran into problem");
+            console.error("Error: ", error)
           }
           setLoading(false);
         });

@@ -48,8 +48,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      // url: `http://${config.apiurl}/login`,
-      url: `https://o2-api.vercel.app/api/v1/login`,
+      url: `http://${import.meta.env.VITE_API_URL}/login`,
       data: data,
       withCredentials: true,
     };

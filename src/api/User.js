@@ -34,8 +34,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      // url: `http://${config.apiurl}/volunteers/register`,
-      url: `https://o2-api.vercel.app/api/v1/volunteers/register`,
+      url: `${import.meta.env.VITE_API_URL}/register`,
       data: data,
     };
     return axios.request(configuration);
@@ -48,7 +47,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `https://${import.meta.env.VITE_API_URL}/login`,
+      url: `${import.meta.env.VITE_API_URL}/login`,
       data: data,
       withCredentials: true,
     };
@@ -59,8 +58,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      // url: `http://${config.apiurl}/logout`,
-      url: `https://o2-api.vercel.app/api/v1/logout`,
+      url: `${import.meta.env.VITE_API_URL}/logout`,
       withCredentials: true,
     };
     return axios.request(configuration)

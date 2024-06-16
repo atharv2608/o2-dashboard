@@ -41,7 +41,7 @@ const menu = [
   },
   {
     name: "Events",
-    link: "/",
+    link: "/databank",
     icon: "DocumentTextIcon",
   },
   {
@@ -157,7 +157,7 @@ export function Sidebar() {
                   <AccordionBody className="py-1">
                     <List className="p-0">
                       {option.submenu.map((subOption, subIndex) => (
-                          <NavLink to={subOption.link}>
+                          <NavLink to={subOption.link}  key={subIndex}>
                         <ListItem key={subIndex} className="ml-5 text-white">
                           <ListItemPrefix>
                             <ChevronRightIcon
@@ -173,7 +173,7 @@ export function Sidebar() {
                   </AccordionBody>
                 </Accordion>
               ) : (
-                  <NavLink to={option.link} className="text-white">
+                  <NavLink to={option.link} className="text-white" key={index}>
                 <ListItem key={index}>
                   <ListItemPrefix>
                     <IconComponent className="h-5 w-5" color="#ef4444" />

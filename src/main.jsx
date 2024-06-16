@@ -17,8 +17,8 @@ const router = (
     <Routes>
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<DashboardLayout />}>
-          <Route path="" element={<App />} />
-          <Route path="/databank" element={<DataBank />} />
+          <Route index element={<App />} />
+          <Route path="databank" element={<DataBank />} />
         </Route>
       </Route>
       <Route path="/login" element={<Login />} />

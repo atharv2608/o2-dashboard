@@ -2,6 +2,7 @@ import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { logout } from "../../slices/authSlice";
 import { ToastContainer, toast } from "react-toastify";
+import Cookies from "js-cookie";
 import {
     Popover,
     PopoverHandler,
@@ -12,7 +13,6 @@ import {
   } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import user from "../../api/User";
 
 export default function MyProfile({username= "Username", role="Role"}) {
     const [loading, setLoading] = useState(false);
@@ -20,26 +20,13 @@ export default function MyProfile({username= "Username", role="Role"}) {
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
-        setLoading(true);
-        dispatch(logout());
-        try {
-            await user.logoutUser().then((res) => {
-                if (res.data?.statusCode === 200) {
-                  navigate("/login", { replace: true });
-                    setLoading(false);
-                }
-            }).catch((error) => {
-                console.error("Error: ", error);
-                toast.error("Ran into problem");
-                setLoading(false);
-            });
-        } catch (error) {
-            console.error("Error: ", error);
-            toast.error("Some error occurred");
-            setLoading(false);
-        } finally {
-            setLoading(false);
-        }
+       try {
+        Cookies.remove("accessToken")
+        dispatch(logout())
+       } catch (error) {
+            toast.error("Error while logging out")
+            console.error("Logout :: ", error)
+       }
     };
 
     return (

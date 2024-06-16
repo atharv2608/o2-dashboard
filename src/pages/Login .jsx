@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login as authLogin } from "../slices/authSlice.js";
 import { ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   scrollToTop();
@@ -45,7 +46,6 @@ const Login = () => {
               secure: true, 
               sameSite: 'strict' 
             })
-            console.log(userData);
             const designation = res.data.data.designation;
             if (userData) dispatch(authLogin(userData, designation));
           }

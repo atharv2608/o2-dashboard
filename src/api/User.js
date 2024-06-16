@@ -48,7 +48,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `http://${import.meta.env.VITE_API_URL}/login`,
+      url: `https://${import.meta.env.VITE_API_URL}/login`,
       data: data,
       withCredentials: true,
     };

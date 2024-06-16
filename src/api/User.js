@@ -34,7 +34,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `${import.meta.env.VITE_API_URL}/register`,
+      url: `https://${import.meta.env.VITE_API_URL}/register`,
       data: data,
     };
     return axios.request(configuration);
@@ -47,7 +47,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `${import.meta.env.VITE_API_URL}/login`,
+      url: `https://${import.meta.env.VITE_API_URL}/login`,
       data: data,
       withCredentials: true,
     };
@@ -58,7 +58,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `${import.meta.env.VITE_API_URL}/logout`,
+      url: `https://${import.meta.env.VITE_API_URL}/logout`,
       withCredentials: true,
     };
     return axios.request(configuration)

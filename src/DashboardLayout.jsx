@@ -13,7 +13,7 @@ function DashboardLayout() {
     <ThemeProvider>
       <ToastContainer />
       <div className="min-h-screen flex flex-col lg:flex-row text-white">
-        <Sidebar />
+        <Sidebar role={userData.designation}/>
         <div className="flex-grow flex flex-col min-h-screen bg-[#1f2020] text-white w-full">
           <div className="hidden bg-[#1f2020] p-4 lg:flex justify-end items-center lg:items-start">
             <div className="font-bold flex items-center">

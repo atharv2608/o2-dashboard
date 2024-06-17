@@ -33,80 +33,89 @@ const iconMap = {
   BuildingOfficeIcon: BuildingOfficeIcon,
 };
 
-const menu = [
-  {
-    name: "Dashboard",
-    link: "/",
-    icon: "PresentationChartBarIcon",
-  },
-  {
-    name: "Events",
-    link: "/databank",
-    icon: "DocumentTextIcon",
-  },
-  {
-    name: "Non Events",
-    link: "/",
-    icon: "DocumentTextIcon",
-  },
-  {
-    name: "Schedule",
-    link: "/",
-    icon: "CalendarDaysIcon",
-  },
-  {
-    name: "Colleges",
-    link: "/",
-    icon: "BuildingOfficeIcon",
-  },
-  {
-    name: "Data Bank",
-    link: "/",
-    icon: "CircleStackIcon",
-    submenu: [
-      {
-        name: "Registration",
-        link: "/",
-      },
-      {
-        name: "Master Data",
-        link: "/",
-      },
-    ],
-  },
-  {
-    name: "Control Panel",
-    link: "/",
-    icon: "Cog8ToothIcon",
-    submenu: [
-      {
-        name: "Initial Setup",
-        link: "/",
-      },
-      {
-        name: "Features",
-        link: "/",
-      },
-    ],
-  },
-  {
-    name: "Developer",
-    link: "/",
-    icon: "CodeBracketIcon",
-    submenu: [
-      {
-        name: "Add Feature",
-        link: "/",
-      },
-      {
-        name: "Add Role",
-        link: "/",
-      },
-    ],
-  },
-];
 
-export function Sidebar() {
+
+export function Sidebar({role}) {
+  const menu = [
+    {
+      name: "Dashboard",
+      link: "/",
+      icon: "PresentationChartBarIcon",
+      visible: true,
+    },
+    {
+      name: "Events",
+      link: "/databank",
+      icon: "DocumentTextIcon",
+      visible: true,
+    },
+    {
+      name: "Non Events",
+      link: "/",
+      icon: "DocumentTextIcon",
+      visible: true,
+    },
+    {
+      name: "Schedule",
+      link: "/",
+      icon: "CalendarDaysIcon",
+      visible: true,
+    },
+    {
+      name: "Colleges",
+      link: "/",
+      icon: "BuildingOfficeIcon",
+      visible: true,
+    },
+    {
+      name: "Data Bank",
+      link: "/",
+      icon: "CircleStackIcon",
+      visible: role === "superadmin" || role === "hod"|| role==="admin-head",
+      submenu: [
+        {
+          name: "Registration",
+          link: "/",
+        },
+        {
+          name: "Master Data",
+          link: "/",
+        },
+      ],
+    },
+    {
+      name: "Control Panel",
+      link: "/",
+      icon: "Cog8ToothIcon",
+      visible: role === "superadmin",
+      submenu: [
+        {
+          name: "Initial Setup",
+          link: "/",
+        },
+        {
+          name: "Features",
+          link: "/",
+        },
+      ],
+    },
+    {
+      name: "Developer",
+      link: "/",
+      icon: "CodeBracketIcon",
+      visible: true,
+      submenu: [
+        {
+          name: "Add Feature",
+          link: "/",
+        },
+        {
+          name: "Add Role",
+          link: "/",
+        },
+      ],
+    },
+  ];
   const [open, setOpen] = React.useState(0);
 
   const handleOpen = (value) => {
@@ -115,7 +124,7 @@ export function Sidebar() {
 
   return (
     <>
-      <div className="hidden lg:flex flex-col bg-black w-full max-w-[15rem]">
+      <div className="hidden lg:flex flex-col bg-black w-full max-w-[18vw]">
         <div className="flex-grow">
           <div className="mb-2 p-4">
             <Typography variant="h5" color="white">
@@ -125,7 +134,8 @@ export function Sidebar() {
           <List>
             {menu.map((option, index) => {
               const IconComponent = iconMap[option.icon];
-              return option?.submenu ? (
+              if(option.visible){
+                return option?.submenu ? (
                 <Accordion
                   key={index}
                   open={open === index}
@@ -182,6 +192,7 @@ export function Sidebar() {
                 </ListItem>
                   </NavLink>
               );
+              }
             })}
           </List>
         </div>

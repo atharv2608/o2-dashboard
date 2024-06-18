@@ -34,7 +34,7 @@ export class User {
     let configuration = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `https://${import.meta.env.VITE_API_URL}/register`,
+      url: `https://${import.meta.env.VITE_API_URL}/volunteers/register`,
       data: data,
     };
     return axios.request(configuration);

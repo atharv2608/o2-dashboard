@@ -26,8 +26,9 @@ function DataBank() {
   return (
     <div className="">
       <div className="text-4xl mb-4 text-white font-bold">Data Bank</div>
-      <div className="flex flex-wrap">
+      <div >
         <ButtonGroup
+        className="flex flex-wrap"
           sx={{ color: "white" }}
           variant="text"
           aria-label="Basic button group"

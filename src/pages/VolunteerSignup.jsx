@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import formimg from "../Images/formimage.png";
+import formimg from "../Images/loginImage.png";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import {

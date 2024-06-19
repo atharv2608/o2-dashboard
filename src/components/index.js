@@ -8,6 +8,8 @@ import { Sidebar } from "./dashboardComponents/Sidebar"
 import DataBank from "./dashboardComponents/DataBank";
 import MyProfile from "./material-tailwind/MyProfile"
 import { MobileSidebar } from "./material-tailwind/MobileSidebar"
+import LoginForm from "./login/LoginForm"
+import LoginImage from "./login/LoginImage"
 export {
     Sidebar,
     Input,
@@ -17,6 +19,8 @@ export {
     Select,
     DataBank,
     MyProfile,
-    MobileSidebar
+    MobileSidebar,
+    LoginForm,
+    LoginImage
     
 }

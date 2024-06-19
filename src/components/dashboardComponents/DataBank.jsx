@@ -1,12 +1,17 @@
-import React from 'react'
-import { checkAccessToken } from '../../utils/checkToken'
+import React from "react";
+import Table from "../mui/Table";
+
+
 function DataBank() {
-  // checkAccessToken()
+  
   return (
-   <div className=''>
-     <div className='text-4xl text-white font-bold'>Data Bank</div>
-   </div>
-  )
+    <div className="">
+      <div className="text-4xl mb-7 text-white font-bold">Data Bank</div>
+      <div>
+        <Table />
+      </div>
+    </div>
+  );
 }
 
-export default DataBank
+export default DataBank;

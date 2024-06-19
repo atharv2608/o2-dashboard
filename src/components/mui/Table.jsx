@@ -7,14 +7,12 @@ import { useSelector } from 'react-redux';
 
 function Table() {
   const data = useSelector((state) => state?.data.volunteersData)
-//   const [volunteers, setVolunteers] = useState([]);
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    const fetchVolunteers = async () => {
+    const fetchVolunteers = () => {
       try {
-        // const response = await axios.get("https://o2-api.vercel.app/api/v1/get/volunteers-list");
-        // const data = response.data.data;
+
         const rowData = data.map(volunteer => ({
           id: volunteer._id,
           name: `${volunteer.firstName} ${volunteer.lastName}`,

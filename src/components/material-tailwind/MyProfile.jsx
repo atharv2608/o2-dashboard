@@ -13,16 +13,17 @@ import {
   } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clearData } from "../../slices/dataSlice";
 
 export default function MyProfile({username= "Username", role="Role"}) {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const logoutHandler = async () => {
        try {
         Cookies.remove("accessToken")
         dispatch(logout())
+        dispatch(clearData())
        } catch (error) {
             toast.error("Error while logging out")
             console.error("Logout :: ", error)

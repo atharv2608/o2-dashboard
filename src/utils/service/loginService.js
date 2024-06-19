@@ -22,12 +22,6 @@ const loginService = async (data, setLoading, setError ,dispatch) => {
             const designation = res.data.data.designation;
             if  (userData) {
               dispatch(authLogin(userData, designation));
-              const fetchData = async()=>{
-                const response = await axios.get("https://o2-api.vercel.app/api/v1/get/volunteers-list");
-                const data = response.data.data;
-                dispatch(populateData(data))
-              }
-              fetchData()
             } 
           }
           setLoading(false);

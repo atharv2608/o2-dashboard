@@ -1,69 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Button from "@mui/material/Button";
-import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 
-function Table() {
-  const data = useSelector((state) => state?.data.volunteersData)
-  const [rows, setRows] = useState([]);
+function Table({ columns, rows }) {
 
-  useEffect(() => {
-    const fetchVolunteers = () => {
-      try {
-
-        const rowData = data.map(volunteer => ({
-          id: volunteer._id,
-          name: `${volunteer.firstName} ${volunteer.lastName}`,
-          std: volunteer.year,
-          course: volunteer.course,
-          firstPreference: volunteer.preferredDept[0], // assuming you want the first preference
-          phone: volunteer.phone,
-        }));
-        setRows(rowData);
-      } catch (error) {
-        console.error("Error fetching volunteer data:", error);
-      }
-    };
-
-    fetchVolunteers();
-  }, []);
-
-  const columns = [
-    { field: "id", headerName: "ID", width: 50, hide: true},
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "std", headerName: "STD", width: 100 },
-    { field: "course", headerName: "Course", width: 100 },
-    { field: "firstPreference", headerName: "First Preference", width: 130 },
-    { field: "phone", headerName: "Phone Number", width: 130, sortable: false },
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 150,
-      sortable: false,
-      hideable: false,
-      renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ backgroundColor: "red" }}
-        >
-          Action
-        </Button>
-      ),
-    },
-  ];
-
+  
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
         disableColumnFilter
         checkboxSelection
         disableRowSelectionOnClick
-
-        
-
+        onRowSelectionModelChange={(ids)=>{
+          const selectedIDs = new Set(ids);
+          const selectedRowData = rows.filter((row)=> selectedIDs.has(row.id.toString()))
+          console.log(selectedRowData)
+        }}
+       
         sx={{
           "& .MuiDataGrid-cell": {
             // changes the text color of the data
@@ -104,7 +57,6 @@ function Table() {
           },
         }}
         pageSizeOptions={[5, 10]}
-        
       />
     </div>
   );
